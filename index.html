@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw Study Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page">
+        <nav class="nav">
+            <div class="logo">OpenClaw Study Assistant</div>
+            <div class="nav-pill">Local AI study workspace</div>
+        </nav>
+
+        <main class="hero">
+            <section class="hero-text">
+                <h1>Study smarter with local AI.</h1>
+                <p>
+                    Paste lecture notes, programming code, or study questions.
+                    OpenClaw helps you turn them into summaries, quizzes, and clear explanations.
+                </p>
+
+                <div class="feature-row">
+                    <div class="feature">Lecture summaries</div>
+                    <div class="feature">Quiz generation</div>
+                    <div class="feature">Code explanation</div>
+                    <div class="feature">Revision support</div>
+                </div>
+            </section>
+
+            <section class="app-card">
+                <div class="card-header">
+                    <h2>Your study input</h2>
+                    <span>Powered by OpenClaw</span>
+                </div>
+
+                <form method="POST" class="study-form">
+                    <textarea
+                        id="user_text"
+                        name="user_text"
+                        placeholder="Paste your lecture notes, Java code, algorithm question, or maths explanation here..."
+                    >{{ user_text }}</textarea>
+
+                    <div class="actions" role="group" aria-label="Choose study mode">
+                        <button class="secondary mode-button {% if selected_mode == 'summarise' %}active{% endif %}" type="submit" name="mode" value="summarise">
+                            Summarise
+                        </button>
+                        <button class="primary mode-button {% if selected_mode == 'quiz' %}active{% endif %}" type="submit" name="mode" value="quiz">
+                            Generate Quiz
+                        </button>
+                        <button class="secondary mode-button {% if selected_mode == 'explain' %}active{% endif %}" type="submit" name="mode" value="explain">
+                            Explain Code
+                        </button>
+                    </div>
+                </form>
+
+                {% if ai_response %}
+                <div class="response-card">
+                    <h3>AI Response</h3>
+                    <pre>{{ ai_response }}</pre>
+                </div>
+                {% endif %}
+
+                <div class="footer-note">
+                    Your notes stay in your own study workflow.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
